@@ -49,7 +49,7 @@ const index = () => {
           </div>
    
   <h2 class="text-2xl mb-4">Classes List</h2>
-
+  {console.log(localStorage.getItem('token  '))}
   {/* <!-- Classes Table --> */}
   <div class="relative overflow-auto">
     <div class="overflow-x-auto rounded-lg">

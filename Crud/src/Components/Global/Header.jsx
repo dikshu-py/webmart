@@ -1,12 +1,18 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom';
 
 const Header = () => {
 
 
   const token  = localStorage.getItem('token')
   const navigate = useNavigate()
+  const location = useLocation(); 
 
+  const hideHeaderRoutes = ['/login', '/register'];
+  if (hideHeaderRoutes.includes(location.pathname)) {
+    return null;
+  }
   return (
     <div className='w-full min-w-screen'>
       <nav className="fixed top-0 left-0 right-0 z-50  bg-white shadow-md rounded-md px-4 py-2 lg:px-2 lg:py-3">
@@ -27,7 +33,7 @@ const Header = () => {
           </button>
           <button  onClick={()=>{
             localStorage.removeItem('token')
-            navigate("/")
+            navigate("/login")
           }}  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
           Log-Out
         </button>
