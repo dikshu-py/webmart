@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import ApiCLient from '../ApiClient/ApiClient'
 
 const index = () => {
     const [data,setData] = useState([])
@@ -11,7 +12,7 @@ const index = () => {
 
     const getData = async (searchKey = "") => {
         try {
-          const res = await axios.get(`http://localhost:3000/products?search=${searchKey}`);
+          const res = await ApiCLient.get(`http://localhost:3000/products?search=${searchKey}`);
           setData(res.data.data);
         } catch (err) {
           console.log(err);
@@ -22,7 +23,7 @@ const index = () => {
 
     //to delete a Specific Item
     const deleteIetm = async (id) =>{
-        await axios.delete(`http://localhost:3000/delete/${id}`).then((res)=>console.log(res)).catch((err)=> console.log(err))
+        await ApiCLient.delete(`http://localhost:3000/delete/${id}`).then((res)=>console.log(res)).catch((err)=> console.log(err))
         getData();
     } 
 

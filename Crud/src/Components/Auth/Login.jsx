@@ -1,5 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react'
+import ApiClient from '../ApiClient/ApiClient';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const [data,setData] = useState({
@@ -7,13 +9,18 @@ const Login = () => {
         password : ""
     })
 
-
+    const navigate = useNavigate()
     const handlesubmit = async (e) =>{
         e.preventDefault(); // ✅ prevent page reload
         console.log(data)
-        const res = await axios.post('http://localhost:3000/login', data).then(
+        const res = await ApiClient.post('http://localhost:3000/login', data).then(
             (res)=>{
+
                 console.log(res)
+                if(res.data.success){
+                    localStorage.setItem('token', res.data.data.token)
+                    navigate("/")
+                }
             }
         ).catch((err)=>console.log(err))
     }

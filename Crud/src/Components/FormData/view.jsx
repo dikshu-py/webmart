@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import ApiClient from '../ApiClient/ApiClient';
 
 const View = () => {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ const View = () => {
 
   const getData = async () => {
     try {
-      const res = await axios.get(`http://localhost:3000/detail/${id}`);
+      const res = await ApiClient.get(`http://localhost:3000/detail/${id}`);
       setData(res.data.data);
     } catch (err) {
       console.error(err);
@@ -66,6 +67,7 @@ const View = () => {
           <span className="font-medium">Detail:</span>
           <span>{data.detail}</span>
         </div>
+        {console.log(data.image)}
         {data.image && (
                         <div>
                         <p> Image:</p>

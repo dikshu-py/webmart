@@ -1,14 +1,15 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const Header = () => {
 
 
-
-    
+  const token  = localStorage.getItem('token')
+  const navigate = useNavigate()
 
   return (
     <div className='w-full min-w-screen'>
-      <nav className="fixed top-0 left-0 right-0 z-50 w-full bg-white shadow-md rounded-md px-4 py-2 lg:px-2 lg:py-3">
+      <nav className="fixed top-0 left-0 right-0 z-50  bg-white shadow-md rounded-md px-4 py-2 lg:px-2 lg:py-3">
         <div className="container flex flex-wrap items-center justify-between mx-auto text-slate-800">
           <a href="/" className="mr-4 block cursor-pointer py-1.5 text-base text-slate-800 font-semibold ml-8">
            Crud Operations
@@ -24,8 +25,16 @@ const Header = () => {
               </svg>
             </span>
           </button>
+          <button  onClick={()=>{
+            localStorage.removeItem('token')
+            navigate("/")
+          }}  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          Log-Out
+        </button>
         </div>
+        
       </nav>
+     
     </div>
   )
 }

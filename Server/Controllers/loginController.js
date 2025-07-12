@@ -1,5 +1,12 @@
+require('dotenv').config();
+
 const login = require('../Models/login');
 const bcrypt = require('bcrypt'); // to decrypt the password
+const jwt = require('jsonwebtoken');
+
+
+const JWT_SECRET = process.env.JWT_SECRET;
+
 
 exports.login = async (req,res) =>{
     try{
@@ -13,13 +20,18 @@ exports.login = async (req,res) =>{
         if (!isMatch) {
           return res.status(401).json({ success: false, message: 'Invalid credentials' });
         }
+
+        //jwt token 
+        const token = jwt.sign({ id: user._id , email : user.email}, JWT_SECRET, { expiresIn: '1h' });
+
          // Success
         res.status(200).json({
             success: true,
             message: 'Login successful',
             data: {
             _id: user._id,
-            email: user.email
+            email: user.email,
+            token : token
             // optionally: other fields except password
             }
         });
